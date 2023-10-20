@@ -1,0 +1,90 @@
+---
+title: "Taller: Introducción a SIG con R"
+subtitle: "Presentación del paquete ggplot2"
+author: "Agustín Nieto"
+institute: "INHUS-CONICET/UNMdP"
+date: "2023/10/10 (actualización: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+class: inverse, center, middle
+
+# Arranquemos...
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+library(ggplot2)
+library(sf)
+library(ggmap)
+library(geomultistar)
+```
+
+---
+
+# ¿Qué es ggplot2?
+
+- ggplot2 es un paquete de R para la creación de gráficos estadísticos desarrollado por Hadley Wickham.
+
+- Declarativo: ggplot2 es un sistema de gráficos declarativo, lo que significa que te permite crear gráficos especificando qué datos quieres visualizar y cómo quieres que se vea el gráfico, en lugar de preocuparte por los detalles de implementación.
+
+- Basado en la Grammar of Graphics: El paquete ggplot2 se basa en la "Grammar of Graphics" (Gramática de las Gráficas), un marco teórico que descompone los gráficos en componentes básicos como datos, estéticas, geoms y facetas. Esto hace que la creación de gráficos sea más estructurada y coherente.
+
+- Layering: ggplot2 te permite agregar capas (layers) a tus gráficos. Puedes agregar capas geométricas (geoms) para representar tus datos, capas estadísticas para realizar cálculos y transformaciones, y personalizar cada capa de forma independiente.
+
+- Facetas: Puedes dividir tus datos en subgráficos utilizando facetas, lo que te permite crear múltiples paneles (subgráficos) basados en una variable categórica. Esto es útil para explorar relaciones en los datos.
+
+---
+
+# Ejemplo de gráfico de dispersión
+
+```{r, echo=FALSE}
+ggplot(data = mtcars, aes(x = mpg, y = wt)) +
+  geom_point()
+```
+
+---
+
+# Ejemplo de gráfico de barras
+
+```{r, echo=FALSE}
+ggplot(data = diamonds, aes(x = cut)) +
+  geom_bar()
+```
+
+---
+
+# Datos georreferenciados
+
+```{r}
+# Cargar datos espaciales de estados de EE. UU.
+estados_usa <- geomultistar::usa_states
+
+# Visualizar los primeros registros del conjunto de datos
+head(estados_usa)
+```
+
+
+
+---
+
+# Crear un mapa de estados de EE. UU.
+
+```{r, warning=FALSE}
+ggplot() +
+ geom_sf(data = geomultistar::usa_states, aes(fill = state), color = "grey", show.legend = F) +
+ labs(title = "Mapa de Estados de EE. UU.", fill = "Estado") +
+  theme_bw()
+```
+
+
+---
+class: inverse, center, middle
+
+# Ahora vayamos a RStudio...
+
