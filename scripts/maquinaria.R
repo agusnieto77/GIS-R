@@ -53,6 +53,13 @@ maquinas_df <- tibble(
   link_map = googlemaps
 )
 
+xlsx::write.xlsx(maquinas_df, 'data/maquinas_df_.xlsx')
+saveRDS(maquinas_df, 'data/maquinas_df.rds')
+
+cliente$close()
+cliente$open()
+servidor$server$stop()
+
 download.file(url = 'https://infra.datos.gob.ar/catalog/modernizacion/dataset/7/distribution/7.34/download/provincias.zip',
               destfile = './shapes/provincias.zip', mode = 'wb')
 
